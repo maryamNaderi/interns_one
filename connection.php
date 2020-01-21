@@ -5,6 +5,7 @@ include('config.php');
 
 // Make Connection
 $connection = connection();
+echo "connection successfully";
 
 function connection() {
 	try {
@@ -14,6 +15,24 @@ function connection() {
 	}
 	
 	return $connection;
+}
+
+//calling the update function
+if (isset($_GET['update'])) {
+	update ($connection);
+	echo "Rows Affected!";
+}
+
+//update the record of the bolg
+function update($connection) {
+	$update= $connection->prepare("UPDATE user SET first_name = :name WHERE id= :id");
+
+	$name ='Zahra' ;
+	$id = '2';
+	$update->bindParam(':name',$name);
+	$update->bindParam(':id',$id);
+
+	$update->execute();
 }
 
 if (isset($_GET['insert']) && $_GET['insert'] == 'true') {
