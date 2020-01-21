@@ -54,3 +54,20 @@ function insert($connection, $data) {
 
 	$result->execute();
 }
+//call the function
+ 
+if(isset($_GET['ShowRecords'])) {
+	ShowRecords($connection);
+	echo "your records";
+}
+
+// to show records 
+function ShowRecords($connection) {
+	$id = 1;
+	$sth = $connection->prepare('SELECT first_name FROM user WHERE  id =:id');
+	$sth->bindValue(':id', $id, PDO::PARAM_INT);
+	
+	$sth->execute();
+	$s = $sth->fetch();
+	 var_dump ($s);	
+	}
